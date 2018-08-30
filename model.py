@@ -34,10 +34,12 @@ class EmoModel(nn.Module):
         # )
 
         # self.Maxpool = nn.MaxPool2d(kernel_size=3)
+        # memory works in power of 2 so prefer using them in place of 3072 or other numbers
+        # This gives a little boost to the processes
 
         self.fc6 = nn.Sequential(
             nn.Dropout(0.3),
-            nn.Linear(3200, 3072),
+            nn.Linear(3200, 1024),
             nn.ReLU(True),
         )
 
@@ -46,9 +48,8 @@ class EmoModel(nn.Module):
         #     nn.ReLU(True),
         #     nn.Dropout(0.5)
         # )
-
         self.fc8 = nn.Sequential(
-            nn.Linear(3072, 6),
+            nn.Linear(1024, 6),
             nn.Softmax()
         )
 

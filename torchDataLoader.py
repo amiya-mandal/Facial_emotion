@@ -12,7 +12,7 @@ class FaceDataLoader(Dataset):
         self.lenval = len(self.filedata)
 
     def  _encode(self, val: int):
-        if val == 0:
+        """if val == 0:
             return np.array([1,0,0,0,0,0,0])
         elif val == 1:
             return np.array([0,1,0,0,0,0,0])
@@ -25,7 +25,21 @@ class FaceDataLoader(Dataset):
         elif val == 5:
             return np.array([0,0,0,0,0,1,0])
         elif val == 6:
-            return np.array([0,0,0,0,0,0,1])
+            return np.array([0,0,0,0,0,0,1])"""
+        """
+        np.eye(6) returns =>
+        array([[1., 0., 0., 0., 0., 0.],
+        [0., 1., 0., 0., 0., 0.],
+        [0., 0., 1., 0., 0., 0.],
+        [0., 0., 0., 1., 0., 0.],
+        [0., 0., 0., 0., 1., 0.],
+        [0., 0., 0., 0., 0., 1.]])
+
+        each row of this array represents the if statement made above.
+        So we just use 'val' to indicate the row number.
+        """
+        return np.eye(6)[val]
+
     def __nameparser(self, strval: str):
         nameval = strval.split("_")
         nameval = int(nameval[0])
