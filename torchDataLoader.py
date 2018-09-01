@@ -12,7 +12,7 @@ class FaceDataLoader(Dataset):
         self.lenval = len(self.filedata)
 
     def  _encode(self, val: int):
-        """if val == 0:
+        if val == 0:
             return np.array([1,0,0,0,0,0,0])
         elif val == 1:
             return np.array([0,1,0,0,0,0,0])
@@ -25,20 +25,7 @@ class FaceDataLoader(Dataset):
         elif val == 5:
             return np.array([0,0,0,0,0,1,0])
         elif val == 6:
-            return np.array([0,0,0,0,0,0,1])"""
-        """
-        np.eye(6) returns =>
-        array([[1., 0., 0., 0., 0., 0.],
-        [0., 1., 0., 0., 0., 0.],
-        [0., 0., 1., 0., 0., 0.],
-        [0., 0., 0., 1., 0., 0.],
-        [0., 0., 0., 0., 1., 0.],
-        [0., 0., 0., 0., 0., 1.]])
-
-        each row of this array represents the if statement made above.
-        So we just use 'val' to indicate the row number.
-        """
-        return np.eye(6)[val]
+            return np.array([0,0,0,0,0,0,1])
 
     def __nameparser(self, strval: str):
         nameval = strval.split("_")
@@ -49,9 +36,9 @@ class FaceDataLoader(Dataset):
         filename = self.filedata[item]
         path = os.path.join("process", filename)
 
-        image = cv2.cvtColor(cv2.imread(path), cv2.COLOR_BGR2GRAY)
-        image = np.reshape(image,(1,48,48))
-        img_data = image.astype('float32')
+        img_data = cv2.cvtColor(cv2.imread(path), cv2.COLOR_BGR2RGB)
+        # image = np.reshape(image,(1,48,48))
+        img_data = np.rollaxis(img_data, 2, 0).astype('float32')
         image = torch.from_numpy(img_data)
         lable = torch.from_numpy(self.__nameparser(filename))
 

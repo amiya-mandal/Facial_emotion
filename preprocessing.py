@@ -2,7 +2,7 @@ import PIL
 from PIL import Image
 import os
 from tqdm import tqdm
-size = 48, 48
+size = 224, 224
 
 
 
